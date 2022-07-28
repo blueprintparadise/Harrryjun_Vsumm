@@ -76,11 +76,12 @@ python3 video_forward.py --summary --dataset utils/train.h5 --frm-dir utils/fram
 args = parser.parse_args()
 
 torch.manual_seed(args.seed)
-os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
-use_gpu = torch.cuda.is_available()
+#os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
+#use_gpu = torch.cuda.is_available()
 if args.use_cpu: use_gpu = False
-
+use_gpu = False
 def main():
+    use_gpu = False
     sys.stdout = Logger(osp.join(args.save_dir, 'log_test.txt'))
     print("==========\nArgs:{}\n==========".format(args))
 
@@ -135,6 +136,7 @@ def main():
 ####
 # 输出score图以及h5文件
 def evaluate(model, dataset, test_keys, use_gpu):
+    use_gpu = False
     print("==> Test")
     with torch.no_grad():
         model.eval()
