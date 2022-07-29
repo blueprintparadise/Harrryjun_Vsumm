@@ -98,10 +98,6 @@ class YouTube8MFeatureExtractor(object):
     assert len(frame_rgb.shape) == 3
     assert frame_rgb.shape[2] == 3  # 3 channels (R, G, B)
     with self._inception_graph.as_default():
-      if apply_pca:
-        frame_features = self.session.run(
-            'pca_final_feature:0', feed_dict={'DecodeJpeg:0': frame_rgb})
-      else:
         frame_features = self.session.run(
             'pool_3/_reshape:0', feed_dict={'DecodeJpeg:0': frame_rgb})
         frame_features = frame_features[0]
